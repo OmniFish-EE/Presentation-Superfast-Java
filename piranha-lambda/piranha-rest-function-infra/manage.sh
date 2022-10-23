@@ -1,8 +1,8 @@
 #!/bin/bash
 
-FUNCTION_NAME=PiranhaFunction
-HANDLER=ee.omnifish.piranhafromgf.piranha.PiranhaFunction::handleRequest
-ZIP_FILE=fileb://../piranha-function/target/piranha-function-package.jar
+FUNCTION_NAME=PiranhaRestFunction
+HANDLER=ee.omnifish.superfast.piranha.PiranhaFunction::handleRequest
+ZIP_FILE=fileb://../piranha-rest-function/target/piranha-rest-function-package.jar
 #AWS_REGION=eu-central-1
 
 function cmd_invoke() {

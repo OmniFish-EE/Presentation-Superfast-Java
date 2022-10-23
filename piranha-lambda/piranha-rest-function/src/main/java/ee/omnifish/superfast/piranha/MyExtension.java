@@ -12,12 +12,17 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
+import org.glassfish.jersey.jsonb.internal.JsonBindingProvider;
 
 public class MyExtension implements WebApplicationExtension {
     
     private class MyInitializer implements ServletContainerInitializer {
 
-        private static final Class[] ANNOTATED_CLASSES = new Class[] { RestApplication.class, PiranhaCloudRestResource.class };
+        private static final Class[] ANNOTATED_CLASSES = new Class[] { 
+            RestApplication.class, 
+            PiranhaCloudRestResource.class,
+            JsonBindingProvider.class
+        };
         
         private WebApplication webApplication;
 
@@ -33,7 +38,6 @@ public class MyExtension implements WebApplicationExtension {
 
         private void addAnnotationsForClass(final AnnotationManager annotationManager, Class<?> cls) {
             Arrays.stream(cls.getAnnotations()).forEach(annotationInstance -> {
-                //annotationManager.addAnnotatedClass(annotationInstance.annotationType(), cls);
                 annotationManager.addAnnotation(new AnnotationInfo<Annotation>() {
                     @Override
                     public Annotation getInstance() {

@@ -1,14 +1,14 @@
-package ee.omnifish.piranhafromgf.piranha.infra;
+package ee.omnifish.superfast.piranha.infra;
 
 import software.amazon.awscdk.App;
 import software.amazon.awscdk.StackProps;
 
 
-public class PiranhaFunctionInfra {
+public class PiranhaRestFunctionInfra {
     public static void main(final String[] args) {
         App app = new App();
 
-        new PiranhaFunctionAwsStack(app, "PiranhaFunctionStack", StackProps.builder()
+        new PiranhaRestFunctionAwsStack(app, "PiranhaRestFunctionStack", StackProps.builder()
                 .build());
 
         app.synth();

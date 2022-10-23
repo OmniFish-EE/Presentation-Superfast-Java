@@ -1,4 +1,4 @@
-package ee.omnifish.piranhafromgf.piranha.infra;
+package ee.omnifish.superfast.piranha.infra;
 
 import java.util.Arrays;
 import static java.util.Collections.singletonList;
@@ -14,13 +14,13 @@ import software.amazon.awscdk.services.lambda.LayerVersionProps;
 import software.amazon.awscdk.services.lambda.Runtime;
 import software.amazon.awscdk.services.logs.RetentionDays;
 
-public class PiranhaFunctionAwsStack extends Stack {
+public class PiranhaRestFunctionAwsStack extends Stack {
 
-    public PiranhaFunctionAwsStack(final Construct scope, final String id) {
+    public PiranhaRestFunctionAwsStack(final Construct scope, final String id) {
         this(scope, id, null);
     }
 
-    public PiranhaFunctionAwsStack(final Construct scope, final String id, final StackProps props) {
+    public PiranhaRestFunctionAwsStack(final Construct scope, final String id, final StackProps props) {
         super(scope, id, props);
 
         // The code that defines your stack goes here
@@ -32,13 +32,14 @@ public class PiranhaFunctionAwsStack extends Stack {
                 .build());
         
         Function exampleWithLayer = new Function(this, "ExampleWithLayer", FunctionProps.builder()
-        .functionName("PiranhaFunction")
-        .description("Function for the Piranha from GlassFish presentation")
-        .handler("ee.omnifish.piranhafromgf.piranha.PiranhaFunction::handleRequest")
+        .functionName("PiranhaRestFunction")
+        .description("Function for the Superfast Java presentation")
+        .handler("ee.omnifish.superfast.piranha.PiranhaFunction::handleRequest")
         .runtime(Runtime.PROVIDED_AL2)
 //        .environment(Map.of("JAVA_TOOL_OPTIONS", "-XX:TieredStopAtLevel=1"))
-        .code(Code.fromAsset("../piranha-function/target/piranha-function-package.jar"))
+        .code(Code.fromAsset("../piranha-rest-function/target/piranha-rest-function-package.jar"))
         .memorySize(3_000)
+//        .memorySize(256)
         .logRetention(RetentionDays.ONE_DAY)
         .layers(singletonList(java17layer))
         .build());

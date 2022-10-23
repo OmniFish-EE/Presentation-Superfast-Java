@@ -44,11 +44,17 @@
             <artifactId>piranha-extension-coreprofile</artifactId>
             <version>${piranha.version}</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-binding</artifactId>
+            <version>3.1.0-M8</version>
+        </dependency>
 
     </dependencies>
     
     <build>
-        <finalName>piranha-function</finalName>
+        <finalName>piranha-rest-function</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
