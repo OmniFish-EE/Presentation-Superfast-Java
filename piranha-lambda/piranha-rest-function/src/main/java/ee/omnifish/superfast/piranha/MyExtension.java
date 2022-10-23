@@ -13,18 +13,23 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Stream;
 import org.glassfish.jersey.jsonb.internal.JsonBindingProvider;
+import org.glassfish.jersey.servlet.init.JerseyServletContainerInitializer;
 
 public class MyExtension implements WebApplicationExtension {
-    
+
     private class MyInitializer implements ServletContainerInitializer {
 
-        private static final Class[] ANNOTATED_CLASSES = new Class[] { 
-            RestApplication.class, 
+        private static final Class[] ANNOTATED_CLASSES = new Class[]{
+            RestApplication.class,
             PiranhaCloudRestResource.class,
             JsonBindingProvider.class
         };
-        
+
         private WebApplication webApplication;
+
+        // for some reason Jersey isn't initialized from service loader when running in AWS Lambda, 
+        // so we initialize manually just in case
+        private final ServletContainerInitializer restInitializer = new JerseyServletContainerInitializer();
 
         public MyInitializer(WebApplication webApplication) {
             this.webApplication = webApplication;
@@ -32,12 +37,16 @@ public class MyExtension implements WebApplicationExtension {
 
         @Override
         public void onStartup(Set<Class<?>> set, ServletContext sc) throws ServletException {
+            System.out.println("My extension starting");
             final AnnotationManager annotationManager = webApplication.getManager().getAnnotationManager();
             Stream.of(ANNOTATED_CLASSES).forEach(cls -> addAnnotationsForClass(annotationManager, cls));
+
+            restInitializer.onStartup(Set.of(ANNOTATED_CLASSES), sc);
         }
 
         private void addAnnotationsForClass(final AnnotationManager annotationManager, Class<?> cls) {
             Arrays.stream(cls.getAnnotations()).forEach(annotationInstance -> {
+                System.out.println("Add annotation: " + annotationInstance.annotationType().getSimpleName() + " on class " + cls.getName());
                 annotationManager.addAnnotation(new AnnotationInfo<Annotation>() {
                     @Override
                     public Annotation getInstance() {
@@ -55,7 +64,8 @@ public class MyExtension implements WebApplicationExtension {
 
     @Override
     public void configure(WebApplication webApplication) {
+        System.out.println("My extension configuring.");
         webApplication.addInitializer(new MyInitializer(webApplication));
     }
-    
+
 }
