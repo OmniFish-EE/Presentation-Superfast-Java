@@ -29,7 +29,7 @@ public class QuarkusFunctionNativeAwsStack extends Stack {
         .handler("io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest")
         .runtime(Runtime.PROVIDED)
         .environment(Map.of("DISABLE_SIGNAL_HANDLERS", "true"))
-        .code(Code.fromAsset("../quarkus-function/target/function.zip"))
+        .code(Code.fromAsset("../quarkus-function-native/target/function.zip"))
         .memorySize(256)
         .logRetention(RetentionDays.ONE_DAY)
         .build());
