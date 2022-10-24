@@ -28,7 +28,7 @@ public class QuarkusFunctionAwsStack extends Stack {
         .description("Function for the Superfast Java presentation")
         .handler("io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest")
         .runtime(Runtime.JAVA_11)
-//        .environment(Map.of("JAVA_TOOL_OPTIONS", "-XX:TieredStopAtLevel=1"))
+        .environment(Map.of("JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1"))
         .code(Code.fromAsset("../quarkus-function/target/function.zip"))
         .memorySize(3_000)
         .logRetention(RetentionDays.ONE_DAY)

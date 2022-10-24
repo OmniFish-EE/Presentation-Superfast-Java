@@ -12,5 +12,6 @@
     <modules>
         <module>quarkus-function</module>
         <module>quarkus-function-infra</module>
+        <module>quarkus-function-infra-native</module>
     </modules>
 </project>

@@ -36,10 +36,10 @@ public class PiranhaRestFunctionAwsStack extends Stack {
         .description("Function for the Superfast Java presentation")
         .handler("ee.omnifish.superfast.piranha.PiranhaFunction::handleRequest")
         .runtime(Runtime.PROVIDED_AL2)
-//        .environment(Map.of("JAVA_TOOL_OPTIONS", "-XX:TieredStopAtLevel=1"))
+        .environment(Map.of("JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1"))
         .code(Code.fromAsset("../piranha-rest-function/target/piranha-rest-function-package.jar"))
         .memorySize(3_000)
-//        .memorySize(256)
+//        .memorySize(512)
         .logRetention(RetentionDays.ONE_DAY)
         .layers(singletonList(java17layer))
         .build());
