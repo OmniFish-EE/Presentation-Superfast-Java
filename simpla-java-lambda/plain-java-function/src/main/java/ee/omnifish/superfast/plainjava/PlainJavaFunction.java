@@ -19,6 +19,10 @@ public class PlainJavaFunction implements RequestHandler<APIGatewayProxyRequestE
     }
 
     private void invokeAnotherLambda() {
+        /* continue with:
+        * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/examples-lambda.html#invoke-function
+        * https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/lambda/src/main/java/com/example/lambda/LambdaInvoke.java
+        */
         LambdaClient.builder()
             .region(region)
             .credentialsProvider(ProfileCredentialsProvider.create())
