@@ -6,6 +6,6 @@ The slides for the presentation are published here:
 
 Source code of demo applications with measurements of how fast they start is in this repository: 
 
-* [https://github.com/OmniFish-EE/Presentation-Piranha-from-GlassFish](Presentation-Piranha-from-GlassFish)
+* [Presentation-Piranha-from-GlassFish](https://github.com/OmniFish-EE/Presentation-Piranha-from-GlassFish)
 
 Source code of some more demo applications will be added soon...
