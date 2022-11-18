@@ -28,5 +28,9 @@
             </plugins>
         </pluginManagement>
     </build>
-
+    <modules>
+        <module>quarkus-lambda</module>
+        <module>piranha-graalvm</module>
+        <module>piranha-lambda</module>
+    </modules>
 </project>
