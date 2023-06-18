@@ -8,4 +8,7 @@ Source code of demo applications with measurements of how fast they start is in 
 
 * [Presentation-Piranha-from-GlassFish](https://github.com/OmniFish-EE/Presentation-Piranha-from-GlassFish)
 
-Source code of some more demo applications will be added soon...
+Source code of more demo applications:
+
+* [Piranha REST Service in AWS Lambda](piranha-lambda)
+* [Quarkus REST Service in AWS Lambda](quarkus-lambda)
