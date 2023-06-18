@@ -16,7 +16,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cdk.version>2.27.0</cdk.version>
+        <cdk.version>2.78.0</cdk.version>
     </properties>
 
     <dependencies>
@@ -37,7 +37,7 @@
                     <artifactId>exec-maven-plugin</artifactId>
                     <version>3.1.0</version>
                     <configuration>
-                        <mainClass>ee.omnifish.superfast.quarkus.infra.QuarkusFunctionInfra</mainClass>
+                        <mainClass>ee.omnifish.superfast.quarkus.infra.QuarkusFunctionInfraNative</mainClass>
                     </configuration>
                 </plugin>
             </plugins>

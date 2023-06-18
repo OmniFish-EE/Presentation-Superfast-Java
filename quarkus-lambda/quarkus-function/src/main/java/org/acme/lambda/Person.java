@@ -1,5 +1,8 @@
 package org.acme.lambda;
 
+import jakarta.enterprise.context.Dependent;
+
+@Dependent
 public class Person {
 
     private String name;
