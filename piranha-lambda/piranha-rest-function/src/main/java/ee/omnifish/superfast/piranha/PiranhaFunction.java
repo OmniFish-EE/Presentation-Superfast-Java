@@ -17,9 +17,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import org.crac.Core;
 import org.crac.Resource;
 
-public class PiranhaFunction implements RequestStreamHandler, Resource {
+public class PiranhaFunction implements RequestStreamHandler {
 
     static final EmbeddedPiranha piranha = new EmbeddedPiranhaBuilder()
             .extensions(AnnotationScanExtension.class,
@@ -27,6 +28,22 @@ public class PiranhaFunction implements RequestStreamHandler, Resource {
                     CoreProfileExtension.class)
             .build()
             .start();
+
+    static {
+        Core.getGlobalContext().register(new Resource() {
+            @Override
+            public void beforeCheckpoint(org.crac.Context<? extends Resource> cntxt) throws Exception {
+                // Preload as much as possible eagerly so that it's prepared to handle requests
+                // after Snapstart restoration
+                warmupPiranha(piranha);
+            }
+
+            @Override
+            public void afterRestore(org.crac.Context<? extends Resource> cntxt) throws Exception {
+            }
+
+        });
+    }
 
     @Override
     public void handleRequest(InputStream in, OutputStream out, Context ctx) throws IOException {
@@ -69,17 +86,6 @@ public class PiranhaFunction implements RequestStreamHandler, Resource {
         response = piranha.service(request);
         System.out.println("Response: " + response.getResponseAsString());
 
-    }
-
-    @Override
-    public void beforeCheckpoint(org.crac.Context<? extends Resource> cntxt) throws Exception {
-        // Preload as much as possible eagerly so that it's prepared to handle requests
-        // after Snapstart restoration
-        warmupPiranha(piranha);
-    }
-
-    @Override
-    public void afterRestore(org.crac.Context<? extends Resource> cntxt) throws Exception {
     }
 
     // execute a dummy request to initialize Jersey, ...
