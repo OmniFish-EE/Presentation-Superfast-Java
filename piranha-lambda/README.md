@@ -1,5 +1,7 @@
 # A simple servlet application with Piranha Cloud in AWS Lambda
 
+Demonstrates AWS Snapstart functionality to restore from a checkpoint for cold starts.
+
 ## Build
 
 ```
