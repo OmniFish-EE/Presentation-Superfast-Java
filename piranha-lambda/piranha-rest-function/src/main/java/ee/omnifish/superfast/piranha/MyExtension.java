@@ -1,5 +1,7 @@
 package ee.omnifish.superfast.piranha;
 
+import static java.lang.System.Logger.Level.DEBUG;
+
 import cloud.piranha.core.api.AnnotationInfo;
 import cloud.piranha.core.api.AnnotationManager;
 import cloud.piranha.core.api.WebApplication;
@@ -16,6 +18,8 @@ import org.glassfish.jersey.jsonb.internal.JsonBindingProvider;
 import org.glassfish.jersey.servlet.init.JerseyServletContainerInitializer;
 
 public class MyExtension implements WebApplicationExtension {
+
+    System.Logger logger = Logging.getLoggerForObject(this);
 
     private class MyInitializer implements ServletContainerInitializer {
 
@@ -37,7 +41,7 @@ public class MyExtension implements WebApplicationExtension {
 
         @Override
         public void onStartup(Set<Class<?>> set, ServletContext sc) throws ServletException {
-            System.out.println("My extension starting");
+            logger.log(DEBUG, "My extension starting");
             final AnnotationManager annotationManager = webApplication.getManager().getAnnotationManager();
             Stream.of(ANNOTATED_CLASSES).forEach(cls -> addAnnotationsForClass(annotationManager, cls));
 
@@ -46,7 +50,10 @@ public class MyExtension implements WebApplicationExtension {
 
         private void addAnnotationsForClass(final AnnotationManager annotationManager, Class<?> cls) {
             Arrays.stream(cls.getAnnotations()).forEach(annotationInstance -> {
-                System.out.println("Add annotation: " + annotationInstance.annotationType().getSimpleName() + " on class " + cls.getName());
+                logger.log(DEBUG, () -> {
+                    return "Add annotation: " + annotationInstance.annotationType().getSimpleName()
+                            + " on class " + cls.getName();
+                });
                 annotationManager.addAnnotation(new AnnotationInfo<Annotation>() {
                     @Override
                     public Annotation getInstance() {
@@ -64,7 +71,7 @@ public class MyExtension implements WebApplicationExtension {
 
     @Override
     public void configure(WebApplication webApplication) {
-        System.out.println("My extension configuring.");
+        logger.log(DEBUG, "My extension configuring.");
         webApplication.addInitializer(new MyInitializer(webApplication));
     }
 

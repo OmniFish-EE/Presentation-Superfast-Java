@@ -1,5 +1,7 @@
 package ee.omnifish.superfast.piranha;
 
+import static java.lang.System.Logger.Level.INFO;
+
 import cloud.piranha.embedded.EmbeddedPiranha;
 import cloud.piranha.embedded.EmbeddedPiranhaBuilder;
 import cloud.piranha.embedded.EmbeddedRequest;
@@ -70,21 +72,17 @@ public class PiranhaFunction implements RequestStreamHandler {
     }
 
     public static void main(String[] args) throws IOException, ServletException {
+        System.Logger logger = Logging.getLoggerForEnclosingClass(new Object() {
+        });
         EmbeddedRequest request = new EmbeddedRequestBuilder()
-                .servletPath("/")
-                .build();
-        EmbeddedResponse response = piranha.service(request);
-        System.out.println("Response: " + response.getResponseAsString());
-
-        request = new EmbeddedRequestBuilder()
                 .servletPath("/")
                 .method("POST")
                 .build();
         request.setInputStream(new ByteArrayInputStream("{ \"name\" : \"John\" }".getBytes(StandardCharsets.UTF_8)));
         request.setContentType(MediaType.APPLICATION_JSON);
         request.setHeader("Content-Type", MediaType.APPLICATION_JSON);
-        response = piranha.service(request);
-        System.out.println("Response: " + response.getResponseAsString());
+        final EmbeddedResponse response = piranha.service(request);
+        logger.log(INFO, () -> "Response: " + response.getResponseAsString());
 
     }
 
