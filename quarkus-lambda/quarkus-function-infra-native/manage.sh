@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FUNCTION_NAME=QuarkusFunction
+FUNCTION_NAME=QuarkusFunctionNative
 HANDLER=io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest
 ZIP_FILE=fileb://../quarkus-function/target/function.zip
 #AWS_REGION=eu-central-1

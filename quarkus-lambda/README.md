@@ -3,7 +3,7 @@
 ## Build
 
 ```
-mvn clean package
+mvn clean package -DskipTests
 ```
 
 ## Prepare AWS environment
@@ -16,10 +16,9 @@ Then run
 * `cdk bootstrap` (installs CDK services to the AWS account, only once for an AWS account)
 * `cdk deploy`
 
-To update a function, run one of:
+To update a function, run:
 
 * `cdk deploy --hotswap`
-* `./manage.sh update`
 
 Both options should reset warm lambda's even if the code doesn't change.
 
@@ -30,11 +29,26 @@ Both options should reset warm lambda's even if the code doesn't change.
 
 ## Run as native GraalVM binary
 
-Build:
+### Build
 
 ```
-cd quarkus-function
-./mvnw package -Pnative
+mvn package -DskipTests -Pnative
 ```
 
-Deploy to AWS Lambda - to do...
+### Prepare AWS environment
+
+Run
+
+* `cd quarkus-function-infra-native`
+* `cdk deploy`
+
+To update a function, run:
+
+* `cdk deploy --hotswap`
+
+Both options should reset warm lambda's even if the code doesn't change.
+
+## Run
+
+* `cd quarkus-function-infra-native`
+* `./manage.sh invoke`

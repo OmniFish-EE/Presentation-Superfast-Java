@@ -19,15 +19,15 @@ public class QuarkusFunctionAwsStack extends Stack {
     public QuarkusFunctionAwsStack(final Construct scope, final String id, final StackProps props) {
         super(scope, id, props);
 
-        Function example = new Function(this, "Example", FunctionProps.builder()
-        .functionName("QuarkusFunction")
-        .description("Function for the Superfast Java presentation")
-        .handler("io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest")
+        Function quarkusFunction = new Function(this, "QuarkusFunction", FunctionProps.builder()
+                .functionName("QuarkusFunction")
+                .description("Function for the Superfast Java presentation")
+                .handler("io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest")
                 .runtime(Runtime.JAVA_17)
                 .environment(Map.of("JAVA_TOOL_OPTIONS", "-XX:+TieredCompilation -XX:TieredStopAtLevel=1"))
-        .code(Code.fromAsset("../quarkus-function/target/function.zip"))
-        .memorySize(3_000)
-        .logRetention(RetentionDays.ONE_DAY)
-        .build());
+                .code(Code.fromAsset("../quarkus-function/target/function.zip"))
+                .memorySize(3_000)
+                .logRetention(RetentionDays.ONE_DAY)
+                .build());
     }
 }

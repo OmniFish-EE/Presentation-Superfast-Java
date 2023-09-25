@@ -8,7 +8,7 @@ public class QuarkusFunctionInfraNative {
     public static void main(final String[] args) {
         App app = new App();
 
-        new QuarkusFunctionNativeAwsStack(app, "QuarkusFunctionStack", StackProps.builder()
+        new QuarkusFunctionNativeAwsStack(app, "QuarkusFunctionNativeStack", StackProps.builder()
                 .build());
 
         app.synth();
